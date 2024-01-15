@@ -10,8 +10,7 @@ public final class DitheringConvertor {
 	private static BufferedImage _exportedPicture;
 
 	private static int _pictureWidth, _pictureHeight;
-	private static int _whitePixel, _blackPixel, _lightRedPixel, _darkRedPixel, _lightGreenPixel, _darkGreenPixel,
-			_lightBluePixel, _darkBluePixel;
+	private static int _whitePixel, _blackPixel;
 
 	/* CONSTRUCTORS */
 
@@ -47,16 +46,6 @@ public final class DitheringConvertor {
 		_exportedPicture = new BufferedImage(_pictureWidth, _pictureHeight, BufferedImage.TYPE_INT_ARGB);
 
 		_whitePixel = (255 << 24) | (255 << 16) | (255 << 8) | 255;
-		
-		_lightRedPixel = (255 << 24) | (170 << 16) | (0 << 8) | 0;
-		_darkRedPixel = (255 << 24) | (85 << 16) | (0 << 8) | 0;
-		
-		_lightGreenPixel = (255 << 24) | (0 << 16) | (170 << 8) | 0;
-		_darkGreenPixel = (255 << 24) | (0 << 16) | (85 << 8) | 0;
-		
-		_lightBluePixel = (255 << 24) | (0 << 16) | (0 << 8) | 170;
-		_darkBluePixel = (255 << 24) | (0 << 16) | (0 << 8) | 85;
-
 		_blackPixel = (255 << 24) | (0 << 16) | (0 << 8) | 0;
 	}
 
@@ -84,23 +73,23 @@ public final class DitheringConvertor {
 			break;
 		case 1:
 			if (x % 2 == 0 || y % 2 == 0) {
-				_exportedPicture.setRGB(x, y, _darkRedPixel);
+				_exportedPicture.setRGB(x, y, _blackPixel);
 			} else {
-				_exportedPicture.setRGB(x, y, _lightRedPixel);
+				_exportedPicture.setRGB(x, y, _whitePixel);
 			}
 			break;
 		case 2:
 			if ((x + y) % 2 == 0) {
-				_exportedPicture.setRGB(x, y, _darkGreenPixel);
+				_exportedPicture.setRGB(x, y, _blackPixel);
 			} else {
-				_exportedPicture.setRGB(x, y, _lightGreenPixel);
+				_exportedPicture.setRGB(x, y, _whitePixel);
 			}
 			break;
 		case 3:
 			if (x % 2 == 0 && y % 2 == 0) {
-				_exportedPicture.setRGB(x, y, _darkBluePixel);
+				_exportedPicture.setRGB(x, y, _blackPixel);
 			} else {
-				_exportedPicture.setRGB(x, y, _lightBluePixel);
+				_exportedPicture.setRGB(x, y, _whitePixel);
 			}
 			break;
 		default:
