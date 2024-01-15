@@ -18,24 +18,25 @@ public class PixelArtConvertor {
 
 	/* CONSTRUCTORS */
 
-	private PixelArtConvertor(){
+	private PixelArtConvertor() {
 		// Just to be a static class
 	}
 
 	/* PUBLIC METHODS */
 
-	public static BufferedImage ConvertPicture(String filepath, int exportedWidth){
+	public static BufferedImage convertPicture(String filepath, int exportedWidth) {
 		_importedPicture = PictureImporter.importPicture(filepath);
 		return executeConversion(exportedWidth);
 	}
-	public static BufferedImage ConvertPicture(BufferedImage importedPicture, int exportedWidth){
+
+	public static BufferedImage convertPicture(BufferedImage importedPicture, int exportedWidth) {
 		_importedPicture = importedPicture;
 		return executeConversion(exportedWidth);
 	}
 
 	/* PRIVATE METHODS */
 
-	private static BufferedImage executeConversion(int exportedWidth){
+	private static BufferedImage executeConversion(int exportedWidth) {
 		gatherVariables();
 		createPictureVariables(exportedWidth);
 		createLoopVariables();
@@ -51,7 +52,8 @@ public class PixelArtConvertor {
 
 	private static void createPictureVariables(int exportedWidth) {
 		_nbHorizontalTiles = exportedWidth;
-		_nbVerticalTiles = Math.round(((float) (_nbHorizontalTiles) / (float) (_importedWidth)) * (float) (_importedHeight));
+		_nbVerticalTiles = Math
+				.round(((float) (_nbHorizontalTiles) / (float) (_importedWidth)) * (float) (_importedHeight));
 		_exportedPicture = new BufferedImage(_nbHorizontalTiles, _nbVerticalTiles, BufferedImage.TYPE_INT_ARGB);
 	}
 
@@ -61,7 +63,7 @@ public class PixelArtConvertor {
 
 		_tileHeight = (_importedHeight / _nbVerticalTiles) + 1;
 		_spareYPixels = (_nbVerticalTiles * _tileHeight) - _importedHeight;
-		
+
 		_xStepBack = (double) _spareXPixels / (double) (_nbHorizontalTiles - 1);
 		_yStepBack = (double) _spareYPixels / (double) (_nbVerticalTiles - 1);
 

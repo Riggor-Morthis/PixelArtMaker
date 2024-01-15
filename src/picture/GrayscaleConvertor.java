@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 public final class GrayscaleConvertor {
 
 	/* VARIABLES */
-	
+
 	private static BufferedImage _importedPicture;
 	private static BufferedImage _exportedPicture;
 
@@ -28,7 +28,7 @@ public final class GrayscaleConvertor {
 	 * @param filepath path to the original picture
 	 * @return a picture where each pixel has been converted to its grayscale value
 	 */
-	public static BufferedImage ConvertPicture(String filepath) {
+	public static BufferedImage convertPicture(String filepath) {
 		_importedPicture = PictureImporter.importPicture(filepath);
 		registerVariables();
 		createExportedPicture();
@@ -72,6 +72,7 @@ public final class GrayscaleConvertor {
 
 	/**
 	 * Mathematical equation to go from RGB to grayscale
+	 * 
 	 * @param pixel the INT_ARGB value of the coloured pixel
 	 * @return the INT_ARGB of the grayscaled pixel
 	 */
