@@ -30,15 +30,24 @@ public final class GrayscaleConvertor {
 	 */
 	public static BufferedImage convertPicture(String filepath) {
 		_importedPicture = PictureImporter.importPicture(filepath);
-		registerVariables();
-		createExportedPicture();
-		convertPictureToGrayscale();
+		return executeConversion();
+	}
 
-		return _exportedPicture;
+	public static BufferedImage convertPicture(BufferedImage importedPicture) {
+		_importedPicture = importedPicture;
+		return executeConversion();
 	}
 
 	/* PRIVATE METHODS */
 
+	private static BufferedImage executeConversion() {
+		registerVariables();
+		createExportedPicture();
+		convertPictureToGrayscale();
+		
+		return _exportedPicture;
+	}
+	
 	/**
 	 * Stores the variables extracted from the original picture
 	 */
