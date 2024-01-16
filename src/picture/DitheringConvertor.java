@@ -2,7 +2,7 @@ package picture;
 
 import java.awt.image.BufferedImage;
 
-public final class DitheringConvertor {
+public class DitheringConvertor {
 
 	/* VARIABLES */
 

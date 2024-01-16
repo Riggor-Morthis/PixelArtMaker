@@ -14,7 +14,7 @@ public class Main {
 
 	public static void main(String[] args) throws IOException {
 
-		BufferedImage colouredDithering = ColoredDitheringConvertor.convertPicture("pictures/CameraPicture.png", 256);
+		BufferedImage colouredDithering = ColoredDitheringConvertor.convertPicture("pictures/CameraPicture.png", 256, 1);
 		File outputFile = new File("pictures/colouredDithering.png");
 		ImageIO.write(colouredDithering, "png", outputFile);
 		

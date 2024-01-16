@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import javax.imageio.ImageIO;
 
-public final class PictureImporter {
+public class PictureImporter {
 
 	private PictureImporter() {
 		// Just to be a static class

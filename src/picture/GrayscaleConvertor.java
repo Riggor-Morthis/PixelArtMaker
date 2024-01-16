@@ -5,7 +5,7 @@ import java.awt.image.BufferedImage;
 /**
  * This class allows our color pictures to be converted to grayscale
  */
-public final class GrayscaleConvertor {
+public class GrayscaleConvertor {
 
 	/* VARIABLES */
 
