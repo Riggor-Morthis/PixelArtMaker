@@ -123,6 +123,10 @@ public abstract class ColoredDithering {
         float s = ((float) hsv[1]) / 100f;
         float v = ((float) hsv[2]) / 100f;
 
+        if(h >= 1) {
+        	h -= 1;
+        }
+        
         float C = s * v;
         float H = h / 60f;
         float X = C * (1 - Math.abs(H % 2f - 1));

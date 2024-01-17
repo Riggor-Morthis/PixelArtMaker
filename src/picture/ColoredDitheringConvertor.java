@@ -4,6 +4,8 @@ import java.awt.image.BufferedImage;
 
 import picture.coloredDitherings.ColoredDithering;
 import picture.coloredDitherings.TypeOneColoredDithering;
+import picture.coloredDitherings.TypeThreeColoredDithering;
+import picture.coloredDitherings.TypeTwoColoredDithering;
 
 public class ColoredDitheringConvertor {
 
@@ -28,14 +30,20 @@ public class ColoredDitheringConvertor {
 	}
 
 	/* PRIVATE METHODS */
-	
+
 	private static BufferedImage executeConversion(BufferedImage importedPicture, int exportedWidth, int type) {
 		ColoredDithering coloredDithering;
 
 		switch (type) {
-			default:
+		case 2:
+			coloredDithering = new TypeTwoColoredDithering(importedPicture, exportedWidth);
+			break;
+		case 3:
+			coloredDithering = new TypeThreeColoredDithering(importedPicture, exportedWidth);
+			break;
+		default:
 			coloredDithering = new TypeOneColoredDithering(importedPicture, exportedWidth);
-				break;
+			break;
 		}
 
 		return coloredDithering.getExportedPicture();

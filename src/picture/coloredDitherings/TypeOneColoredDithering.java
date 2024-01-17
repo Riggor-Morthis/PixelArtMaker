@@ -6,8 +6,8 @@ public class TypeOneColoredDithering extends ColoredDithering {
 
     /* VARIABLES */
 
-    private static int[] _lightPixel, _mediumPixel, _darkPixel;
-    private static int _whitePixel, _blackPixel;
+    private int[] _lightPixel, _mediumPixel, _darkPixel;
+    private int _whitePixel, _blackPixel;
 
     /* CONSTRUCTORS */
 
@@ -38,16 +38,16 @@ public class TypeOneColoredDithering extends ColoredDithering {
 
     protected void createPalette() {
         int[] hsv = rgbToHsv(_darkPixel[0]);
-        _darkPixel[0] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 0.8f, 0f, 255f), Math.clamp(hsv[2] * 1.1f, 0f, 255f));
-        _darkPixel[1] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 1.1f, 0f, 255f), Math.clamp(hsv[2] * 0.8f, 0f, 255f));
+        _darkPixel[0] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 0.8f, 0f, 100f), Math.clamp(hsv[2] * 1.1f, 0f, 100f));
+        _darkPixel[1] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 1.1f, 0f, 100f), Math.clamp(hsv[2] * 0.8f, 0f, 100f));
 
         hsv = rgbToHsv(_mediumPixel[0]);
-        _mediumPixel[0] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 0.8f, 0f, 255f), Math.clamp(hsv[2] * 1.1f, 0f, 255f));
-        _mediumPixel[1] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 1.1f, 0f, 255f), Math.clamp(hsv[2] * 0.8f, 0f, 255f));
+        _mediumPixel[0] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 0.8f, 0f, 100f), Math.clamp(hsv[2] * 1.1f, 0f, 100f));
+        _mediumPixel[1] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 1.1f, 0f, 100f), Math.clamp(hsv[2] * 0.8f, 0f, 100f));
 
         hsv = rgbToHsv(_lightPixel[0]);
-        _lightPixel[0] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 0.8f, 0f, 255f), Math.clamp(hsv[2] * 1.1f, 0f, 255f));
-        _lightPixel[1] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 1.1f, 0f, 255f), Math.clamp(hsv[2] * 0.8f, 0f, 255f));
+        _lightPixel[0] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 0.8f, 0f, 100f), Math.clamp(hsv[2] * 1.1f, 0f, 100f));
+        _lightPixel[1] = hsvToRgb(hsv[0], Math.clamp(hsv[1] * 1.1f, 0f, 100f), Math.clamp(hsv[2] * 0.8f, 0f, 100f));
     }
 
     protected void setPixelValue(int x, int y, int avg) {
