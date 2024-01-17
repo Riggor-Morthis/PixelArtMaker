@@ -42,7 +42,12 @@ public class TypeTwoColoredDithering extends ColoredDithering {
 			}
 		}
 
-		return ((255 << 24) | (color[1] / counter << 16) | (color[2] / counter << 8) | color[3] / counter);
+		if(counter > 0) {
+        	return ((255 << 24) | (color[1] / counter << 16) | (color[2] / counter << 8) | color[3] / counter);
+        }
+        else {
+        	return ((255 << 24) | (0 << 16) | (0 << 8) | 0);
+        }
 	}
 
 	protected void createPalette() {
