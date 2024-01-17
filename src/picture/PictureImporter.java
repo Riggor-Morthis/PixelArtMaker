@@ -6,10 +6,14 @@ import javax.imageio.ImageIO;
 
 public class PictureImporter {
 
+	/* CONSTRUCTORS */
+	
 	private PictureImporter() {
 		// Just to be a static class
 	}
 
+	/* PUBLIC METHODS */
+	
 	/**
 	 * Imports and store the user's original picture
 	 * 
