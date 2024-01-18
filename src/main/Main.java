@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import picture.ColoredDitheringConvertor;
 import picture.DitheringConvertor;
 import picture.GrayscaleConvertor;
+import picture.PaletteDitheringConvertor;
 import picture.PictureExporter;
 import picture.PictureImporter;
 import picture.PixelArtConvertor;
@@ -18,10 +19,9 @@ public class Main {
 		BufferedImage joconde = PictureImporter.importPicture("pictures/joconde.png");
 		
 		BufferedImage colouredDithering = ColoredDitheringConvertor.convertPicture(joconde, 256, 2);
-		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeType2.png", 5);
+		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeBase.png", 5);
 		
-		colouredDithering = ColoredDitheringConvertor.convertPicture(joconde, 256, 4);
-		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeType4.png", 5);
-		
+		colouredDithering = PaletteDitheringConvertor.convert(joconde, 256, 4);
+		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeClone.png", 5);
 	}
 }
