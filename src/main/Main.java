@@ -9,24 +9,19 @@ import picture.ColoredDitheringConvertor;
 import picture.DitheringConvertor;
 import picture.GrayscaleConvertor;
 import picture.PictureExporter;
+import picture.PictureImporter;
 import picture.PixelArtConvertor;
 
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-
-		BufferedImage colouredDithering;
-		String[] names = {"Clouds", "Factory", "Lakeside", "Sky"};
-		String path;
+		BufferedImage joconde = PictureImporter.importPicture("pictures/joconde.png");
 		
-		for(int i = 0; i < 4; i ++) {
-			path = "pictures/" + names[i] + ".png";
-			
-			for(int j = 1; j < 4; j++){
-				colouredDithering = ColoredDitheringConvertor.convertPicture(path, 256, j);
-				path = "pictures/" + names[i] + j + ".png";
-				PictureExporter.exportPicture(colouredDithering, path, 5);
-			}
-		}
+		BufferedImage colouredDithering = ColoredDitheringConvertor.convertPicture(joconde, 256, 2);
+		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeType2.png", 5);
+		
+		colouredDithering = ColoredDitheringConvertor.convertPicture(joconde, 256, 4);
+		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeType4.png", 5);
+		
 	}
 }
