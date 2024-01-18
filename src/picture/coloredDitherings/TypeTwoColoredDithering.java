@@ -42,12 +42,11 @@ public class TypeTwoColoredDithering extends ColoredDithering {
 			}
 		}
 
-		if(counter > 0) {
-        	return ((255 << 24) | (color[1] / counter << 16) | (color[2] / counter << 8) | color[3] / counter);
-        }
-        else {
-        	return ((255 << 24) | (0 << 16) | (0 << 8) | 0);
-        }
+		if (counter > 0) {
+			return ((255 << 24) | (color[1] / counter << 16) | (color[2] / counter << 8) | color[3] / counter);
+		} else {
+			return ((255 << 24) | (0 << 16) | (0 << 8) | 0);
+		}
 	}
 
 	protected void createPalette() {
@@ -56,33 +55,33 @@ public class TypeTwoColoredDithering extends ColoredDithering {
 
 	protected void setPixelValue(int x, int y, int avg) {
 		switch (avg / 51) {
-		case 0:
-			_exportedPicture.setRGB(x, y, _blackPixel);
-			break;
-		case 1:
-			if ((x + y) % 2 == 0) {
+			case 0:
 				_exportedPicture.setRGB(x, y, _blackPixel);
-			} else {
-				_exportedPicture.setRGB(x, y, _darkPixel);
-			}
-			break;
-		case 2:
-			if ((x + y) % 2 == 0) {
-				_exportedPicture.setRGB(x, y, _darkPixel);
-			} else {
-				_exportedPicture.setRGB(x, y, _lightPixel);
-			}
-			break;
-		case 3:
-			if ((x + y) % 2 == 0) {
-				_exportedPicture.setRGB(x, y, _lightPixel);
-			} else {
+				break;
+			case 1:
+				if ((x + y) % 2 == 0) {
+					_exportedPicture.setRGB(x, y, _blackPixel);
+				} else {
+					_exportedPicture.setRGB(x, y, _darkPixel);
+				}
+				break;
+			case 2:
+				if ((x + y) % 2 == 0) {
+					_exportedPicture.setRGB(x, y, _darkPixel);
+				} else {
+					_exportedPicture.setRGB(x, y, _lightPixel);
+				}
+				break;
+			case 3:
+				if ((x + y) % 2 == 0) {
+					_exportedPicture.setRGB(x, y, _lightPixel);
+				} else {
+					_exportedPicture.setRGB(x, y, _whitePixel);
+				}
+				break;
+			default:
 				_exportedPicture.setRGB(x, y, _whitePixel);
-			}
-			break;
-		default:
-			_exportedPicture.setRGB(x, y, _whitePixel);
-			break;
+				break;
 		}
 	}
 }

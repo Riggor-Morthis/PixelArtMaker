@@ -1,9 +1,7 @@
 package main;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 
 import picture.ColoredDitheringConvertor;
 import picture.DitheringConvertor;
@@ -16,12 +14,19 @@ import picture.PixelArtConvertor;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
+		BufferedImage colouredDithering;
 		BufferedImage joconde = PictureImporter.importPicture("pictures/joconde.png");
 		
-		BufferedImage colouredDithering = ColoredDitheringConvertor.convertPicture(joconde, 256, 2);
-		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeBase.png", 5);
-		
+		colouredDithering = PaletteDitheringConvertor.convert(joconde, 256, 2);
+		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeTwo.png", 5);
+
 		colouredDithering = PaletteDitheringConvertor.convert(joconde, 256, 4);
-		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeClone.png", 5);
+		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeFour.png", 5);
+
+		colouredDithering = PaletteDitheringConvertor.convert(joconde, 256, 8);
+		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeHeight.png", 5);
+
+		colouredDithering = PaletteDitheringConvertor.convert(joconde, 256, 16);
+		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeSixteen.png", 5);
 	}
 }
