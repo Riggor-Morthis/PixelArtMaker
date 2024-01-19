@@ -18,10 +18,10 @@ public class Main {
 		BufferedImage colouredDithering;
 		BufferedImage joconde = PictureImporter.importPicture("pictures/joconde.png");
 
-		colouredDithering = PaletteDitheringConvertor.convert(joconde, 256, 4);
-		PictureExporter.exportPicture(colouredDithering, "pictures/jocondePalette.png", 5);
-		
-		colouredDithering = AlternativePaletteDithering.convert(joconde, 256, 4);
+		colouredDithering = PaletteDitheringConvertor.convert(joconde, 256, 8);
 		PictureExporter.exportPicture(colouredDithering, "pictures/jocondeAlternative.png", 5);
+		
+		//colouredDithering = AlternativePaletteDithering.convert(joconde, 256, 4);
+		//PictureExporter.exportPicture(colouredDithering, "pictures/jocondeAlternative.png", 5);
 	}
 }

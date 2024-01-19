@@ -14,6 +14,7 @@ public class PaletteDitheringConvertor {
 	private static int[] _colorPalette;
 	private static int _paletteSize;
 	private static int _shadeSteps;
+	private static int lMin, lMax;
 
 	/* CONSTRUCTORS */
 
@@ -37,6 +38,7 @@ public class PaletteDitheringConvertor {
 
 	private static BufferedImage executeConversion(int exportedWidth, int paletteSize) {
 		prepareVariables(exportedWidth, paletteSize);
+		createPalette();
 		getPixelShades();
 		colorsThePicture();
 
@@ -46,7 +48,6 @@ public class PaletteDitheringConvertor {
 	private static void prepareVariables(int exportedWidth, int paletteSize) {
 		_paletteSize = Math.clamp(paletteSize, 2, 254);
 		_colorPalette = new int[_paletteSize];
-		_shadeSteps = Math.round(255f / (float)(_paletteSize + 1));
 
 		_importedPicture = PixelArtConvertor.convertPicture(_importedPicture, exportedWidth);
 		_pictureHeight = _importedPicture.getHeight();
@@ -55,6 +56,26 @@ public class PaletteDitheringConvertor {
 		_exportedPicture = new BufferedImage(_pictureWidth, _pictureHeight, BufferedImage.TYPE_INT_ARGB);
 	}
 
+	private  static void createPalette() {
+		int pixel = _importedPicture.getRGB(0, 0);
+		lMin = pixelToLuminosity(pixel);
+		lMax = pixelToLuminosity(pixel);
+		
+		for(int x = 0; x < _pictureWidth; x++) {
+			for(int y = 0; y < _pictureHeight; y++) {
+				pixel = pixelToLuminosity(_importedPicture.getRGB(x, y));
+				if(lMin > pixel) {
+					lMin = pixel;
+				}
+				else if(lMax < pixel) {
+					lMax = pixel;
+				}
+			}
+		}
+		
+		_shadeSteps = Math.round(((float) lMax - (float) lMin) / (float)(_paletteSize + 1));
+	}
+	
 	private static void getPixelShades() {
 		for (int i = 0; i < _paletteSize; i++) {
 			_colorPalette[i] = extractLocationBasedColours(i, i + 1);
@@ -70,8 +91,8 @@ public class PaletteDitheringConvertor {
 			for (int y = 0; y < _pictureHeight; y++) {
 				pixel = _importedPicture.getRGB(x, y);
 
-				if (pixelToLuminosity(pixel) / _shadeSteps == targetOne
-						|| pixelToLuminosity(pixel) / _shadeSteps == targetTwo) {
+				if ((pixelToLuminosity(pixel) - lMin) / _shadeSteps == targetOne
+						|| (pixelToLuminosity(pixel) - lMin) / _shadeSteps == targetTwo) {
 					color[0] += (pixel >> 24) & 0xff;
 					color[1] += (pixel >> 16) & 0xff;
 					color[2] += (pixel >> 8) & 0xff;
@@ -91,7 +112,8 @@ public class PaletteDitheringConvertor {
 	private static int pixelToLuminosity(int pixel) {
 		int[] rgb = getPixelValues(pixel);
 
-		return (int) (.3f * rgb[0] + .59f * rgb[1] + .11f * rgb[2]);
+		//return (int) (.3f * rgb[0] + .59f * rgb[1] + .11f * rgb[2]);
+		return (int) ((1f / 3f) * rgb[0] + (1f / 3f) * rgb[1] + (1f / 3f) * rgb[2]);
 	}
 
 	private static int[] getPixelValues(int pixel) {
@@ -113,7 +135,7 @@ public class PaletteDitheringConvertor {
 
 	private static void findAppropriateColor(int x, int y) {
 		int pixel = pixelToLuminosity(_importedPicture.getRGB(x, y));
-		int value = pixel / _shadeSteps;
+		int value = (pixel - lMin) / _shadeSteps;
 
 		int i = 0;
 		while (i != value && i < _paletteSize) {
