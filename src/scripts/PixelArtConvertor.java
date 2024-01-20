@@ -1,4 +1,4 @@
-package picture;
+package scripts;
 
 import java.awt.image.BufferedImage;
 
@@ -19,25 +19,13 @@ public class PixelArtConvertor {
 	/* CONSTRUCTORS */
 
 	private PixelArtConvertor() {
-		// Just to be a static class
 	}
 
 	/* PUBLIC METHODS */
 
-	public static BufferedImage convertPicture(String filepath, int exportedWidth) {
+	public static BufferedImage convert(String filepath, int exportedWidth) {
 		_importedPicture = PictureImporter.importPicture(filepath);
-		return executeConversion(exportedWidth);
-	}
 
-	public static BufferedImage convertPicture(BufferedImage importedPicture, int exportedWidth) {
-		_importedPicture = importedPicture;
-		return executeConversion(exportedWidth);
-	}
-
-	/* PRIVATE METHODS */
-
-	private static BufferedImage executeConversion(int exportedWidth) {
-		gatherVariables();
 		createPictureVariables(exportedWidth);
 		createLoopVariables();
 		mainLoop();
@@ -45,15 +33,16 @@ public class PixelArtConvertor {
 		return _exportedPicture;
 	}
 
-	private static void gatherVariables() {
-		_importedWidth = _importedPicture.getWidth();
-		_importedHeight = _importedPicture.getHeight();
-	}
+	/* PRIVATE METHODS */
 
 	private static void createPictureVariables(int exportedWidth) {
+		_importedWidth = _importedPicture.getWidth();
+		_importedHeight = _importedPicture.getHeight();
+
 		_nbHorizontalTiles = exportedWidth;
 		_nbVerticalTiles = Math
-				.round(((float) (_nbHorizontalTiles) / (float) (_importedWidth)) * (float) (_importedHeight));
+				.round(((float) (_nbHorizontalTiles) / (float) (_importedWidth) * (float) (_importedHeight)));
+
 		_exportedPicture = new BufferedImage(_nbHorizontalTiles, _nbVerticalTiles, BufferedImage.TYPE_INT_ARGB);
 	}
 
@@ -73,7 +62,6 @@ public class PixelArtConvertor {
 	private static void mainLoop() {
 		int xOffset, yOffset;
 		int startingXValue, startingYValue;
-		int pixel;
 
 		for (int xTile = 0; xTile < _nbHorizontalTiles; xTile++) {
 			xOffset = (int) Math.round(_xStepBack * xTile);
@@ -83,34 +71,33 @@ public class PixelArtConvertor {
 				yOffset = (int) Math.round(_yStepBack * yTile);
 				startingYValue = yTile * _tileHeight - yOffset;
 
-				pixel = extractTileValue(startingXValue, startingYValue);
-				_exportedPicture.setRGB(xTile, yTile, pixel);
+				setTileValue(startingXValue, startingYValue, xTile, yTile);
 			}
 		}
 	}
 
+	private static void setTileValue(int startingXValue, int startingYValue, int xTile, int yTile) {
+		int pixel = extractTileValue(startingXValue, startingYValue);
+		_exportedPicture.setRGB(xTile, yTile, pixel);
+	}
+
 	private static int extractTileValue(int startingXValue, int startingYValue) {
-		double totalA = 0;
-		double totalR = 0;
-		double totalG = 0;
-		double totalB = 0;
+		double totalR = 0, totalG = 0, totalB = 0;
 		int pixel;
 
 		for (int x = startingXValue; x < startingXValue + _tileWidth; x++) {
 			for (int y = startingYValue; y < startingYValue + _tileHeight; y++) {
 				pixel = _importedPicture.getRGB(x, y);
-				totalA += (pixel >> 24) & 0xff;
 				totalR += (pixel >> 16) & 0xff;
 				totalG += (pixel >> 8) & 0xff;
 				totalB += pixel & 0xff;
 			}
 		}
 
-		int a = (int) Math.round(totalA / _tileArea);
 		int r = (int) Math.round(totalR / _tileArea);
 		int g = (int) Math.round(totalG / _tileArea);
 		int b = (int) Math.round(totalB / _tileArea);
 
-		return (a << 24) | (r << 16) | (g << 8) | b;
+		return (255 << 24) | (r << 16) | (g << 8) | b;
 	}
 }
