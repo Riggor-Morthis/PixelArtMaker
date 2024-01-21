@@ -22,7 +22,7 @@ public class LuminosityConvertor {
 
     public static int[][] convert(BufferedImage importedPicture, int paletteSize) {
         _importedPicture = importedPicture;
-        createVariables(paletteSize);
+        createVariables();
         firstLoop();
         secondLoop(paletteSize);
 
@@ -31,7 +31,7 @@ public class LuminosityConvertor {
 
     /* PRIVATE METHODS */
 
-    private static void createVariables(int paletteSize) {
+    private static void createVariables() {
         _importedHeight = _importedPicture.getHeight();
         _importedWidth = _importedPicture.getWidth();
 
@@ -69,11 +69,12 @@ public class LuminosityConvertor {
     }
 
     private static void secondLoop(int paletteSize) {
-        int shadeSteps = Math.round(((float) _lMax - (float) _lMin) / (float) (paletteSize + 1));
+        int nbClusters = (2 * paletteSize - 2);
+        int shadeSteps = (int) Math.floor(((float) _lMax - (float) _lMin) / (float) nbClusters);
 
         for (int x = 0; x < _importedWidth; x++) {
             for (int y = 0; y < _importedHeight; y++) {
-                _exportedLuminosity[x][y] = (_exportedLuminosity[x][y] - _lMin) / shadeSteps;
+                _exportedLuminosity[x][y] = Math.clamp((_exportedLuminosity[x][y] - _lMin) / shadeSteps, 0, nbClusters);
             }
         }
     }

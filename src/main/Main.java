@@ -6,6 +6,8 @@ import scripts.DitheringCreator;
 public class Main {
 
 	public static void main(String[] args) throws IOException {
-		DitheringCreator.create("pictures/joconde.png", 128, 16, "pictures/joconde16.png", 5);
+		for(int i = 2; i < 64; i++){
+			DitheringCreator.create("pictures/ScreenLeft.png", 128, i, "pictures/Dithered" +  i + ".png", 5);
+		}
 	}
 }

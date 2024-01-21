@@ -34,11 +34,12 @@ public class DitheringCreator {
     /* PRIVATE METHODS */
 
     private static void createVariables(String filepath, int exportedWidth, int paletteSize) {
+        _paletteSize = Math.clamp(paletteSize, 2, 64);
+        
         _importedPicture = PixelArtConvertor.convert(filepath, exportedWidth);
-        _importedLuminosity = LuminosityConvertor.convert(_importedPicture, paletteSize);
-        _importedPalette = PaletteCreator.create(_importedPicture, _importedLuminosity, paletteSize);
+        _importedLuminosity = LuminosityConvertor.convert(_importedPicture, _paletteSize);
+        _importedPalette = PaletteCreator.create(_importedPicture, _importedLuminosity, _paletteSize);
 
-        _paletteSize = Math.clamp(paletteSize, 2, 128);
         _importedWidth = _importedPicture.getWidth();
         _importedHeight = _importedPicture.getHeight();
 
@@ -54,16 +55,22 @@ public class DitheringCreator {
     }
 
     private static void setColor(int x, int y, int luminosity) {
-        if (luminosity == 0) {
-            _exportedPicture.setRGB(x, y, _importedPalette.get(0));
-        } else if (luminosity >= _paletteSize) {
-            _exportedPicture.setRGB(x, y, _importedPalette.get(_paletteSize - 1));
+        if (luminosity % 2 == 0) {
+            setEvenColor(x, y, luminosity / 2);
         } else {
-            if ((x + y) % 2 == 0) {
-                _exportedPicture.setRGB(x, y, _importedPalette.get(luminosity - 1));
-            } else {
-                _exportedPicture.setRGB(x, y, _importedPalette.get(luminosity));
-            }
+            setOddColor(x, y, (luminosity - 1) / 2, (luminosity + 1) / 2);
+        }
+    }
+
+    private static void setEvenColor(int x, int y, int luminosity) {
+        _exportedPicture.setRGB(x, y, _importedPalette.get(luminosity));
+    }
+
+    private static void setOddColor(int x, int y, int luminosity1, int luminosity2) {
+        if ((x + y) % 2 == 0) {
+            _exportedPicture.setRGB(x, y, _importedPalette.get(luminosity1));
+        } else {
+            _exportedPicture.setRGB(x, y, _importedPalette.get(luminosity2));
         }
     }
 }
