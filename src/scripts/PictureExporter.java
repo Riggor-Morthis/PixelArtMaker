@@ -8,18 +8,19 @@ import javax.imageio.ImageIO;
 
 public class PictureExporter {
 
-  /* CONSTRUCTORS */
+    /* CONSTRUCTORS */
 
-  private PictureExporter() {
-    // Just to be a static class
-  }
+    private PictureExporter() {
+        // Just to be a static class
+    }
 
-  /* PUBLIC METHODS */
+    /* PUBLIC METHODS */
 
-  public static synchronized void exportPicture(BufferedImage importedPicture, String path, int scaleFactor) throws IOException {
-    BufferedImage exportedPicture = PictureScaler.scale(importedPicture, scaleFactor);
+    public static synchronized void exportPicture(BufferedImage importedPicture, String path, int scaleFactor)
+            throws IOException {
+        BufferedImage exportedPicture = PictureScaler.scale(importedPicture, scaleFactor);
 
-    File outputFile = new File(path);
-    ImageIO.write(exportedPicture, "png", outputFile);
-  }
+        File outputFile = new File(path);
+        ImageIO.write(exportedPicture, "png", outputFile);
+    }
 }

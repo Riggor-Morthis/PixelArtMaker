@@ -15,13 +15,8 @@ public class PaletteExtractorFromFile {
 
     /* PUBLIC METHODS */
 
-    public static ArrayList<Integer> create(BufferedImage importedPicture, String paletteFilePath,
-            int[][] importedLuminosity, int paletteSize) throws Exception {
-        
-                createFilePalette(paletteFilePath);
-        if (_exportedPalette.size() < paletteSize) {
-            throw new Exception("File does not contain enough unique colours.");
-        }
+    public static ArrayList<Integer> extract(String paletteFilePath) {
+        createFilePalette(paletteFilePath);
 
         return _exportedPalette;
     }
