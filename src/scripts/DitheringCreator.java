@@ -38,7 +38,7 @@ public class DitheringCreator {
         
         _importedPicture = PixelArtConvertor.convert(filepath, exportedWidth);
         _importedLuminosity = LuminosityConvertor.convert(_importedPicture, _paletteSize);
-        _importedPalette = PaletteCreator.create(_importedPicture, _importedLuminosity, _paletteSize);
+        _importedPalette = PaletteCreatorFromScratch.create(_importedPicture, _importedLuminosity, _paletteSize);
 
         _importedWidth = _importedPicture.getWidth();
         _importedHeight = _importedPicture.getHeight();

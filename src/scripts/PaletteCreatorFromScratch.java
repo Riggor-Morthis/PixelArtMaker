@@ -3,7 +3,7 @@ package scripts;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-public class PaletteCreator {
+public class PaletteCreatorFromScratch {
 
     /* VARIABLES */
 
@@ -15,7 +15,7 @@ public class PaletteCreator {
 
     /* CONSTRUCTORS */
 
-    private PaletteCreator() {
+    private PaletteCreatorFromScratch() {
     }
 
     /* PUBLIC METHODS */
