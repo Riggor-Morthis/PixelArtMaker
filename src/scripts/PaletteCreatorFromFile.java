@@ -59,7 +59,7 @@ public class PaletteCreatorFromFile {
         ColorsAssociation association;
 
         for (int i = 0; i < _importedScratchPalette.size(); i++) {
-            association = new ColorsAssociation(_importedScratchPalette.get(i), _importedFilePalette.get(0));
+            association = new ColorsAssociation(_importedFilePalette.get(0), _importedScratchPalette.get(i));
 
             for (int j = 1; j < _importedFilePalette.size(); j++) {
                 association.tryNewColor(_importedFilePalette.get(j));

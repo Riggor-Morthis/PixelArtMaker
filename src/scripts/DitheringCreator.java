@@ -24,9 +24,24 @@ public class DitheringCreator {
 
     /* PUBLIC METHODS */
 
-    public static void create(String importedFilePath, int exportedWidth, int paletteSize, String exportFilePath,
+    public static void create(String importedPicturePath, int exportedWidth, int paletteSize, String exportFilePath,
             int scaleFactor) throws IOException {
-        createVariables(importedFilePath, exportedWidth, paletteSize);
+
+        createVariables(importedPicturePath, exportedWidth, paletteSize);
+        _importedPalette = PaletteCreatorFromScratch.create(_importedPicture, _importedLuminosity, _paletteSize);
+
+        createPicture();
+        PictureExporter.exportPicture(_exportedPicture, exportFilePath, scaleFactor);
+    }
+
+    public static void create(String importedPicturePath, String importedFilePath, int exportedWidth, int paletteSize,
+            String exportFilePath,
+            int scaleFactor) throws IOException {
+
+        createVariables(importedPicturePath, exportedWidth, paletteSize);
+        _importedPalette = PaletteCreatorFromFile.create(_importedPicture, importedFilePath, _importedLuminosity,
+                paletteSize);
+
         createPicture();
         PictureExporter.exportPicture(_exportedPicture, exportFilePath, scaleFactor);
     }
@@ -35,10 +50,9 @@ public class DitheringCreator {
 
     private static void createVariables(String filepath, int exportedWidth, int paletteSize) {
         _paletteSize = Math.clamp(paletteSize, 2, 64);
-        
+
         _importedPicture = PixelArtConvertor.convert(filepath, exportedWidth);
         _importedLuminosity = LuminosityConvertor.convert(_importedPicture, _paletteSize);
-        _importedPalette = PaletteCreatorFromScratch.create(_importedPicture, _importedLuminosity, _paletteSize);
 
         _importedWidth = _importedPicture.getWidth();
         _importedHeight = _importedPicture.getHeight();
