@@ -24,11 +24,11 @@ public class DitheringCreator {
 
     /* PUBLIC METHODS */
 
-    public static void create(String importedPicturePath, int exportedWidth, int paletteSize, String exportFilePath,
+    public static void create(String importedPicturePath, boolean greyscale, int exportedWidth, int paletteSize, String exportFilePath,
             int scaleFactor) throws IOException {
 
         createVariables(importedPicturePath, exportedWidth, paletteSize);
-        _importedPalette = PaletteCreatorFromScratch.create(_importedPicture, _importedLuminosity, _paletteSize);
+        _importedPalette = PaletteCreatorFromScratch.create(_importedPicture, greyscale, _importedLuminosity, _paletteSize);
 
         createPicture();
         PictureExporter.exportPicture(_exportedPicture, exportFilePath, scaleFactor);

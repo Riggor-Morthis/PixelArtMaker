@@ -20,15 +20,24 @@ public class PaletteCreatorFromScratch {
 
     /* PUBLIC METHODS */
 
-    public static ArrayList<Integer> create(BufferedImage importedPicture, int[][] importedLuminosity,
-            int paletteSize) {
-        createVariables(importedPicture, importedLuminosity, paletteSize);
-        mainLoop();
+    public static ArrayList<Integer> create(BufferedImage importedPicture, boolean greyscale,
+            int[][] importedLuminosity, int paletteSize) {
 
+        if (greyscale) {
+            createGreyscalePalette(paletteSize);
+        } else {
+            createColoredPalette(importedPicture, importedLuminosity, paletteSize);
+        }
         return _exportedPalette;
     }
 
     /* PRIVATE METHODS */
+
+    private static void createColoredPalette(BufferedImage importedPicture, int[][] importedLuminosity,
+            int paletteSize) {
+        createVariables(importedPicture, importedLuminosity, paletteSize);
+        mainLoop();
+    }
 
     private static void createVariables(BufferedImage importedPicture, int[][] importedLuminosity, int paletteSize) {
         _importedPicture = importedPicture;
@@ -87,5 +96,21 @@ public class PaletteCreatorFromScratch {
     private static float[] extractPixelRgb(int x, int y) {
         int pixel = _importedPicture.getRGB(x, y);
         return new float[] { (pixel >> 16) & 0xff, (pixel >> 8) & 0xff, (pixel) & 0xff };
+    }
+
+    private static void createGreyscalePalette(int paletteSize) {
+        _exportedPalette = new ArrayList<Integer>();
+        
+        int[] greyShade;
+        int greystep = 255 / (paletteSize - 1);
+
+        for (int i = 0; i < paletteSize; i++) {
+            greyShade = new int[] { i * greystep, i * greystep, i * greystep };
+            _exportedPalette.add(convertToRgb(greyShade));
+        }
+    }
+
+    private static int convertToRgb(int[] pixelValues) {
+        return 255 << 24 | pixelValues[0] << 16 | pixelValues[1] << 8 | pixelValues[2];
     }
 }

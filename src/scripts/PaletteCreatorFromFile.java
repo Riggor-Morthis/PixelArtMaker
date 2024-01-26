@@ -37,7 +37,7 @@ public class PaletteCreatorFromFile {
 
     private static void getVariables(BufferedImage importedPicture, String paletteFilePath, int[][] importedLuminosity,
             int paletteSize) throws Exception {
-        _importedScratchPalette = PaletteCreatorFromScratch.create(importedPicture, importedLuminosity, paletteSize);
+        _importedScratchPalette = PaletteCreatorFromScratch.create(importedPicture, false, importedLuminosity, paletteSize);
         _importedFilePalette = PaletteExtractorFromFile.extract(paletteFilePath);
 
         if (_importedFilePalette.size() < _importedScratchPalette.size()) {
