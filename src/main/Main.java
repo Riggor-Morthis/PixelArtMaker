@@ -2,16 +2,17 @@ package main;
 
 import java.io.IOException;
 
-import scripts.DitheringCreator;
+import scripts.DitheringColored;
+import scripts.DitheringGrayscale;
+import scripts.DitheringPalette;
+import scripts.ImagePackage;
 
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        DitheringCreator.create("pictures/joconde.png", false, 128, 4, "pictures/coloured.png", 5);
-        DitheringCreator.create("pictures/joconde.png", true, 128, 4, "pictures/greyscale.png", 5);
-        DitheringCreator.create("pictures/joconde.png", "pictures/palette_nes.png", 128, 4,
-                "pictures/nes.png", 5);
-        DitheringCreator.create("pictures/joconde.png", "pictures/palette_mastersystem.png", 128, 4,
-                "pictures/mastersystem.png", 5);
+        ImagePackage joconde = new ImagePackage("pictures/joconde.png", 128, 4);
+        DitheringGrayscale.create(joconde, "pictures/jocondegreyscale.png", 5);
+        DitheringColored.create(joconde, "pictures/jocondecolored.png", 5);
+        DitheringPalette.create(joconde, "pictures/jocondepalette.png", 5, "pictures/palette_mastersystem.png");
     }
 }
