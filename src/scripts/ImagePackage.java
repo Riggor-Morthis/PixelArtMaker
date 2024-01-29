@@ -29,7 +29,7 @@ public class ImagePackage {
 
     /* PRIVATE METHODS */
 
-    private void importImage(String imagePath) {
+    private synchronized void importImage(String imagePath) {
         try {
             File imageFile = new File(imagePath);
             baseImage = ImageIO.read(imageFile);
