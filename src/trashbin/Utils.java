@@ -1,4 +1,4 @@
-package scripts;
+package trashbin;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
